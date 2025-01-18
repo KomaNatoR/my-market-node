@@ -1,5 +1,5 @@
 const marketOrders = require("../services/orders-services");
-
+const { HttpError, ctrlWrapper } = require("../utils");
 
 
 const getAllOrders = async (_, res) => {
@@ -14,5 +14,5 @@ const createOrder = async (req, res) => {
 
 module.exports = {
   getAllOrders,
-  createOrder,
+  createOrder: ctrlWrapper(createOrder),
 };
