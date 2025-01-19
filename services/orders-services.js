@@ -8,7 +8,7 @@ const ordersPath = path.join(__dirname, "../db/chese-market/orders.json");
 
 const getAll = async () => {
   const orders = await fs.readFile(ordersPath, "utf-8");
-  
+
   return JSON.parse(orders);
 }
 const add = async ({ name, phone, items }) => {
@@ -31,9 +31,18 @@ const add = async ({ name, phone, items }) => {
 
   return newOrder;
 }
+const remove = async(orderId) => {
+  const orders = await getAll();
+  const index = orders.findIndex(item => item.id === orderId);
+  if (index === -1) return null;
+  const [result] = orders.splice(index, 1);
+  await fs.writeFile(ordersPath, JSON.stringify(orders, null, 2));
+  return result;
+}
 
 
 module.exports = {
   getAll,
   add,
+  remove,
 }
