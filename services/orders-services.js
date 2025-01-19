@@ -4,7 +4,7 @@ const { nanoid } = require("nanoid");
 
 
 
-const ordersPath = path.join(__dirname, "../db/chese-market/orders.json");
+const ordersPath = path.join(__dirname, "../db/my-market/orders.json");
 
 const getAll = async () => {
   const orders = await fs.readFile(ordersPath, "utf-8");

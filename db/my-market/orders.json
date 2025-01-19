@@ -1,6 +1,5 @@
 [
   {
-    "id": "order_20250118_0001",
     "name": "Galushko Sashko",
     "phone": "(097)555-5555",
     "items": [
@@ -20,8 +19,8 @@
         "price": 400
       }
     ],
-    "date": "2025-01-18T09:59:00Z",
-    "total": 1000,
+    "date": "18.01.2025, 09:59:00",
+    "total": 1800,
     "status": "pending",
     "delivery": {
       "method": "courier",
@@ -29,7 +28,6 @@
     }
   },
   {
-    "id": "GhNZKAE-RJv45UlgHJqzi",
     "name": "Nam",
     "phone": "0975555557",
     "items": [
