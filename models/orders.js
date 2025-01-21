@@ -20,19 +20,19 @@ const ItemSchema = new Schema({
 });
 
 // Схема для доставки
-const DeliverySchema = new Schema({
-  method: {
-    type: String,
-    enum: ["courier", "pickup", "postal"],
-    required: true,
-  },
-  address: {
-    type: String,
-    required: function () {
-      return this.method === "courier"; // Адреса потрібна тільки для доставки кур'єром
-    },
-  },
-});
+// const DeliverySchema = new Schema({
+//   method: {
+//     type: String,
+//     enum: ["courier", "pickup", "postal"],
+//     required: true,
+//   },
+//   address: {
+//     type: String,
+//     required: function () {
+//       return this.method === "courier"; // Адреса потрібна тільки для доставки кур'єром
+//     },
+//   },
+// });
 
 // Схема для замовлення
 const OrderSchema = new Schema({
@@ -56,22 +56,31 @@ const OrderSchema = new Schema({
   },
   date: {
     type: String, // Зберігається у форматі "18.01.2025, 19:10:43"
+    default: () => new Date().toLocaleString(), // Автоматична генерація дати
     required: true,
   },
   total: {
     type: Number,
     required: true,
     min: 0,
+    default: 0, // Початкове значення, але буде розраховуватися автоматично
   },
   status: {
     type: String,
     enum: ["pending", "completed", "canceled"],
     default: "pending",
   },
-  delivery: {
-    type: DeliverySchema,
-    required: true,
-  },
+  // delivery: {
+  //   type: DeliverySchema,
+  //   required: true,
+  // },
+});
+
+// Хук для підрахунку total перед збереженням
+OrderSchema.pre("save", function (next) {
+  // Рахуємо загальну суму замовлення на основі items
+  this.total = this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  next();
 });
 
 

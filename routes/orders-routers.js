@@ -8,7 +8,7 @@ const schemas = require("../schemas/orders-schemas");
 
 const orderRouter = express.Router();
 orderRouter.get("/", ctrl.getAllOrders);
-// orderRouter.post("/", validateBody(schemas.addSchema), ctrl.createOrder);
+orderRouter.post("/", validateBody(schemas.addSchema), ctrl.createOrder);
 // orderRouter.delete("/:id", ctrl.deleteOrder);
 
 
