@@ -51,6 +51,16 @@ const addSchema = Joi.object({
       'array.min': 'At least one item is required in the order.',
     }),
 });
+const updateStatusSchema = Joi.object({
+  status: Joi.string()
+    .valid("new", "pending", "completed", "canceled")
+    .required()
+    .messages({
+      "any.required": "The 'status' field is required.",
+      "string.empty": "The 'status' field cannot be empty.",
+      "any.only": "The 'status' field must be one of ['new', 'pending', 'completed', 'canceled'].",
+    }),
+});
 
 
 // Схема для елементів у замовленні
@@ -119,8 +129,8 @@ const OrderSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["pending", "completed", "canceled"],
-    default: "pending",
+    enum: ["new", "pending", "completed", "canceled"],
+    default: "new",
   },
   // delivery: {
   //   type: DeliverySchema,
@@ -140,4 +150,5 @@ OrderSchema.pre("save", function (next) {
 module.exports = {
   Order: model("order", OrderSchema),
   addSchema,
+  updateStatusSchema,
 };
