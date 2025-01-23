@@ -52,7 +52,7 @@ const deleteOrder = async (req, res) => {
 
 
 module.exports = {
-  getAllOrders,
+  getAllOrders: ctrlWrapper(getAllOrders),
   createOrder: ctrlWrapper(createOrder),
   findOneOrder: ctrlWrapper(findOneOrder),
   updateOrder: ctrlWrapper(updateOrder),
