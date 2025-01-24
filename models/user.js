@@ -19,8 +19,8 @@ const registerSchema = Joi.object({
   
   password: Joi.string()
     .min(3) // Мінімальна довжина 8 символів
-    .max(32) // Максимальна довжина 32 символи (опціонально)
-    .pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*()_+]*$")) // Тільки дозволені символи
+    // .max(32) // Максимальна довжина 32 символи (опціонально)
+    // .pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*()_+]*$")) // Тільки дозволені символи
     .required() // Поле обов'язкове
     .messages({
       "string.empty": "Password cannot be empty",
@@ -51,8 +51,8 @@ const loginSchema = Joi.object({
   
   password: Joi.string()
     .min(3) // Мінімальна довжина 3 символа
-    .max(32) // Максимальна довжина 32 символи (опціонально)
-    .pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*()_+]*$")) // Тільки дозволені символи
+    // .max(32) // Максимальна довжина 32 символи (опціонально)
+    // .pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*()_+]*$")) // Тільки дозволені символи
     .required() // Поле обов'язкове
     .messages({
       "string.empty": "Password cannot be empty",
@@ -75,15 +75,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 3, // Мінімальна довжина пароля
-    maxlength: 32, // Максимальна довжина пароля
-    validate: {
-      validator: function (value) {
-        // Регулярний вираз для перевірки дозволених символів
-        return /^[a-zA-Z0-9!@#$%^&*()_+]*$/.test(value);
-      },
-      message:
-        "Password must contain only letters, numbers, and special characters (!@#$%^&*()_+).",
-    },
+    // maxlength: 32, // Максимальна довжина пароля
+    // validate: {
+    //   validator: function (value) {
+    //     // Регулярний вираз для перевірки дозволених символів
+    //     return /^[a-zA-Z0-9!@#$%^&*()_+]*$/.test(value);
+    //   },
+    //   message:
+    //     "Password must contain only letters, numbers, and special characters (!@#$%^&*()_+).",
+    // },
   },
   email: {
     type: String,
