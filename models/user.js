@@ -41,12 +41,22 @@ const registerSchema = Joi.object({
     }),
 });
 const loginSchema = Joi.object({
-  name: Joi.string()
-    .min(3)
+  // name: Joi.string()
+  //   .min(3)
+  //   .required()
+  //   .messages({
+  //     'string.empty': 'Name is required.',
+  //     'string.min': 'Name must be at least 3 characters long.',
+  //   }),
+
+  email: Joi.string()
+    .email({ tlds: { allow: false } }) // Перевірка на правильний формат імейлу
+    .pattern(emeilRegExp)              // Перевірка щоб співпадало з Mongoose виразом!
     .required()
     .messages({
-      'string.empty': 'Name is required.',
-      'string.min': 'Name must be at least 3 characters long.',
+      "string.empty": "Email cannot be empty",
+      "string.email": "Please provide a valid email address",
+      "any.required": "Email is required",
     }),
   
   password: Joi.string()
