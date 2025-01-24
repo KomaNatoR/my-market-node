@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 const Joi = require('joi');
 
+const { handleMongooseError } = require("../utils");
+
 
 
 const emeilRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,7 +50,7 @@ const loginSchema = Joi.object({
     }),
   
   password: Joi.string()
-    .min(3) // Мінімальна довжина 8 символів
+    .min(3) // Мінімальна довжина 3 символа
     .max(32) // Максимальна довжина 32 символи (опціонально)
     .pattern(new RegExp("^[a-zA-Z0-9!@#$%^&*()_+]*$")) // Тільки дозволені символи
     .required() // Поле обов'язкове
@@ -95,10 +97,11 @@ const userSchema = new Schema({
     ],
   },
 }, { versionKey: false, timestamps: true });
+userSchema.post("save", handleMongooseError); // робить правильний код помилки!
 
 
 module.exports = {
-  User: model("auth", userSchema),
+  User: model("user", userSchema),
   registerSchema,
   loginSchema,
 };
