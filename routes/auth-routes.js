@@ -1,7 +1,7 @@
 const express = require("express");
 
 const ctrl = require("../controllers/auth-controllers");
-const { validateBody } = require("../utils");
+const { validateBody, isValidId } = require("../middlewares");
 const joiSchemas = require("../models/user");
 
 
