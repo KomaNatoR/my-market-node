@@ -2,13 +2,15 @@ const { Order } = require("../models/orders");
 const { HttpError, ctrlWrapper } = require("../utils");
 
 
-const getAllOrders = async (_, res) => {
-  const data = await Order.find({},"-status -updatedAt"); //,"-status -updatedAt" - не показувати ці поля!
+const getAllOrders = async (req, res) => {
+  const { _id: owner } = req.user;
+  const data = await Order.find({ owner }, "-status -updatedAt"); //,"-status -updatedAt" - не показувати ці поля!
   res.json(data);
 
 };
 const createOrder = async (req, res) => {
-  const result = await Order.create(req.body);
+  const { _id: owner } = req.user;
+  const result = await Order.create({ ...req.body, owner });
   res.status(201).json(result);
 
 };

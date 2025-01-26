@@ -116,6 +116,11 @@ const OrderSchema = new Schema({
     },
     required: true,
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User", // Прив'язка до моделі User
+    required: true,
+  },
   // date: {
   //   type: String, // Зберігається у форматі "18.01.2025, 19:10:43"
   //   default: () => new Date().toLocaleString(), // Автоматична генерація дати
@@ -144,7 +149,6 @@ OrderSchema.pre("save", function (next) {
   this.total = this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   next();
 });
-
 
 
 module.exports = {
