@@ -118,7 +118,7 @@ const OrderSchema = new Schema({
   },
   owner: {
     type: Schema.Types.ObjectId,
-    ref: "User", // Прив'язка до моделі User
+    ref: "user", // Прив'язка до моделі user
     required: true,
   },
   // date: {

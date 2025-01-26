@@ -4,7 +4,10 @@ const { HttpError, ctrlWrapper } = require("../utils");
 
 const getAllOrders = async (req, res) => {
   const { _id: owner } = req.user;
-  const data = await Order.find({ owner }, "-status -updatedAt"); //,"-status -updatedAt" - не показувати ці поля!
+    const {page = 1, limit = 10} = req.query;
+    const skip = (page - 1) * limit; // пагінація
+  // const data = await Order.find({ owner }, "-status -updatedAt");
+  const data = await Order.find({ owner }, "-status -updatedAt", { skip, limit }).populate("owner", "name email");  //,"-status -updatedAt" - не показувати ці поля!
   res.json(data);
 
 };
