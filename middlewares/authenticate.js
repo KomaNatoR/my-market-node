@@ -21,7 +21,7 @@ const authenticate = async (req, res, next) => {
       next(HttpError(401));
     }
     req.user = user;
-    return next();
+    next();
   }
   catch {
     next(HttpError(401));

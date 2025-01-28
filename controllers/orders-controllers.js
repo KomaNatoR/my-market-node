@@ -3,11 +3,13 @@ const { HttpError, ctrlWrapper } = require("../utils");
 
 
 const getAllOrders = async (req, res) => {
-  const { _id: owner } = req.user;
-    const {page = 1, limit = 10} = req.query;
-    const skip = (page - 1) * limit; // пагінація
+  const { role, _id } = req.user;
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit; // пагінація
   // const data = await Order.find({ owner }, "-status -updatedAt");
-  const data = await Order.find({ owner }, "-status -updatedAt", { skip, limit }).populate("owner", "name email");  //,"-status -updatedAt" - не показувати ці поля!
+  // Адміністратор бачить всі замовлення, користувач — тільки свої
+  const filter = role === "admin" ? {} : { owner: _id };
+  const data = await Order.find(filter, "-status -updatedAt", { skip, limit }).populate("owner", "name email");  //,"-status -updatedAt" - не показувати ці поля!
   res.json(data);
 
 };

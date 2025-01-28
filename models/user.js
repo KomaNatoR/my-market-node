@@ -106,6 +106,7 @@ const userSchema = new Schema({
       "Please provide a valid email address", // Повідомлення про помилку
     ],
   },
+  role: { type: String, enum: ["user", "admin"], default: "user" },
   token: {
     type: String,
     default: ""
