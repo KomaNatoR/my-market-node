@@ -50,6 +50,8 @@ const addSchema = Joi.object({
       'array.base': 'Items must be an array.',
       'array.min': 'At least one item is required in the order.',
     }),
+  
+  comment: Joi.string().optional(),
 });
 const updateStatusSchema = Joi.object({
   status: Joi.string()
@@ -115,6 +117,10 @@ const OrderSchema = new Schema({
       message: "Order must have at least one item.",
     },
     required: true,
+  },
+  comment: {
+    type: String, // Поле для коментаря
+    required: false, // Робимо його необов'язковим
   },
   owner: {
     type: Schema.Types.ObjectId,

@@ -15,7 +15,9 @@ const getAllOrders = async (req, res) => {
 };
 const createOrder = async (req, res) => {
   const { _id: owner } = req.user;
-  const result = await Order.create({ ...req.body, owner });
+  const { comment = "" } = req.body;
+  
+  const result = await Order.create({ ...req.body, comment, owner });
   res.status(201).json(result);
 
 };
