@@ -106,6 +106,10 @@ const userSchema = new Schema({
       "Please provide a valid email address", // Повідомлення про помилку
     ],
   },
+  token: {
+    type: String,
+    default: ""
+  }
 }, { versionKey: false, timestamps: true });
 userSchema.post("save", handleMongooseError); // робить правильний код помилки!
 
